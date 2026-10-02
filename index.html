@@ -1,0 +1,4151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>Clínica Psiquiátrica - Sis Enfermagem</title>
+
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:Arial,sans-serif
+}
+
+body{
+min-height:100vh;
+background:linear-gradient(135deg,#e8f0ff,#f5f7fb);
+color:#263238
+}
+
+.container{
+min-height:100vh;
+width:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px
+}
+
+#telaLogin,
+#telaCadastro{
+min-height:100vh;
+width:100%;
+display:flex;
+align-items:center;
+justify-content:center
+}
+
+#telaCadastro{
+display:none
+}
+
+.card{
+width:100%;
+max-width:420px;
+background:#fff;
+padding:35px;
+border-radius:18px;
+box-shadow:0 10px 35px #0002
+}
+
+.logo{
+text-align:center;
+margin-bottom:25px
+}
+
+.logo .icone{
+width:60px;
+height:60px;
+margin:auto;
+border-radius:50%;
+background:#4f6bed;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px
+}
+
+.logo h1{
+margin-top:12px;
+color:#273469;
+font-size:22px
+}
+
+.form-group{
+margin-bottom:15px
+}
+
+label{
+display:block;
+margin-bottom:5px;
+font-weight:bold;
+color:#374151;
+font-size:13px
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:11px;
+border:1px solid #d6dbe5;
+border-radius:8px;
+outline:0;
+font-size:14px;
+background:#fff
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+border-color:#4f6bed;
+box-shadow:0 0 0 3px #4f6bed1f
+}
+
+textarea{
+resize:vertical;
+min-height:80px
+}
+
+button{
+width:100%;
+padding:13px;
+border:0;
+border-radius:8px;
+background:#4f6bed;
+color:#fff;
+font-size:15px;
+font-weight:bold;
+cursor:pointer
+}
+
+button:hover{
+filter:brightness(.9)
+}
+
+.link{
+text-align:center;
+margin-top:18px;
+color:#4f6bed;
+cursor:pointer;
+font-size:14px
+}
+
+.msg{
+margin-bottom:12px;
+padding:10px;
+border-radius:6px;
+font-size:13px;
+display:none
+}
+
+.erro{
+background:#fee2e2;
+color:#991b1b
+}
+
+.sucesso{
+background:#dcfce7;
+color:#166534
+}
+
+
+/* DASHBOARD */
+
+#dashboard,
+.modulo-tela{
+display:none;
+min-height:100vh;
+background:#f4f7fb
+}
+
+.navbar{
+min-height:65px;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px;
+padding:10px 30px;
+box-shadow:0 2px 10px #0000000d
+}
+
+.navbar h2{
+color:#273469;
+font-size:20px
+}
+
+.nav-actions{
+display:flex;
+gap:8px;
+flex-wrap:wrap
+}
+
+.btn-acao{
+width:auto;
+padding:8px 14px;
+font-size:13px;
+border-radius:6px
+}
+
+.btn-backup{
+background:#0284c7
+}
+
+.btn-restaurar{
+background:#d97706
+}
+
+.btn-sair{
+background:#ef4444
+}
+
+.content{
+width:100%;
+max-width:1000px;
+margin:auto;
+padding:30px 20px
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+margin-top:25px
+}
+
+.menu-card{
+background:#fff;
+border-radius:14px;
+padding:25px;
+box-shadow:0 5px 15px #0000000d;
+cursor:pointer;
+transition:.2s
+}
+
+.menu-card:hover{
+transform:translateY(-3px)
+}
+
+.card-icon{
+width:50px;
+height:50px;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+margin-bottom:15px
+}
+
+.azul{
+background:#e0e7ff
+}
+
+.verde{
+background:#dcfce7
+}
+
+.roxo{
+background:#f3e8ff
+}
+
+.menu-card h3{
+margin-bottom:8px;
+color:#273469;
+font-size:18px
+}
+
+.menu-card p{
+color:#64748b;
+font-size:14px;
+line-height:1.4
+}
+
+.btn-voltar{
+display:inline-block;
+width:auto;
+margin-bottom:20px;
+padding:8px 14px;
+background:#e2e8f0;
+color:#334155;
+font-size:14px
+}
+
+
+/* PRONTUARIO */
+
+.prontuario-card{
+background:#fff;
+padding:25px;
+border-radius:14px;
+box-shadow:0 4px 15px #0000000d;
+margin-bottom:20px
+}
+
+.prontuario-card h3{
+color:#273469;
+margin-bottom:15px;
+font-size:16px;
+border-bottom:2px solid #f1f5f9;
+padding-bottom:8px
+}
+
+.grid-2{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px
+}
+
+.condicional{
+display:none;
+margin-top:10px
+}
+
+.tabela-sinais{
+width:100%;
+border-collapse:collapse;
+margin-bottom:15px
+}
+
+.tabela-sinais th,
+.tabela-sinais td{
+border:1px solid #d6dbe5;
+padding:8px;
+text-align:center
+}
+
+.tabela-sinais th{
+background:#f8fafc;
+color:#374151;
+font-size:12px
+}
+
+.tabela-sinais input{
+border:0;
+text-align:center;
+background:transparent;
+padding:4px
+}
+
+.tabela-sinais input:focus{
+box-shadow:none;
+border-bottom:1px solid #4f6bed
+}
+
+.flex{
+display:flex;
+gap:10px
+}
+
+.flex button{
+width:140px;
+flex-shrink:0
+}
+
+
+/* POPUP */
+
+.popup{
+position:fixed;
+inset:0;
+background:#0009;
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:9999
+}
+
+.popup.show{
+display:flex
+}
+
+.popup-box{
+position:relative;
+width:100%;
+max-width:600px;
+background:#fff;
+border-radius:18px;
+padding:15px;
+box-shadow:0 20px 60px #0005;
+text-align:center;
+animation:entrada .25s ease
+}
+
+.popup-box img{
+display:block;
+width:100%;
+max-height:70vh;
+object-fit:contain;
+border-radius:12px
+}
+
+.popup-close{
+position:absolute;
+right:10px;
+top:10px;
+width:38px;
+height:38px;
+padding:0;
+border-radius:50%;
+background:#ef4444;
+font-size:20px;
+z-index:2
+}
+
+@keyframes entrada{
+
+from{
+transform:scale(.9);
+opacity:0
+}
+
+to{
+transform:scale(1);
+opacity:1
+}
+
+}
+
+
+/* ==============================
+   AGENDA
+============================== */
+
+.lista-agenda{
+margin-top:20px
+}
+
+.agenda-item{
+background:#f8fafc;
+border:1px solid #e2e8f0;
+border-radius:10px;
+padding:16px;
+margin-bottom:12px
+}
+
+.agenda-item h4{
+color:#273469;
+margin-bottom:12px;
+font-size:15px
+}
+
+.agenda-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px 15px;
+font-size:13px
+}
+
+.agenda-grid div{
+color:#475569
+}
+
+.agenda-grid strong{
+color:#1e293b
+}
+
+.agenda-acoes{
+display:flex;
+gap:8px;
+margin-top:14px
+}
+
+.btn-editar-agenda{
+width:auto;
+padding:8px 14px;
+background:#2563eb;
+font-size:12px
+}
+
+.btn-excluir-agenda{
+width:auto;
+padding:8px 14px;
+background:#ef4444;
+font-size:12px
+}
+
+.btn-cancelar-agenda{
+width:auto;
+padding:8px 14px;
+background:#64748b;
+font-size:12px;
+display:none
+}
+
+.sem-agenda{
+background:#f1f5f9;
+padding:15px;
+border-radius:8px;
+color:#64748b;
+text-align:center
+}
+
+.titulo-lista-agenda{
+color:#273469;
+margin-bottom:12px;
+font-size:17px
+}
+
+.badge-agenda{
+display:inline-block;
+background:#e0e7ff;
+color:#3730a3;
+padding:4px 8px;
+border-radius:5px;
+font-size:11px;
+font-weight:bold;
+margin-left:5px
+}
+
+.agenda-editando{
+border:2px solid #2563eb;
+background:#eff6ff
+}
+
+@media(max-width:800px){
+
+.cards{
+grid-template-columns:1fr 1fr
+}
+
+.content{
+padding:25px 15px
+}
+
+}
+
+@media(max-width:600px){
+
+.card{
+padding:25px 20px
+}
+
+.navbar{
+padding:10px 15px;
+align-items:flex-start
+}
+
+.navbar h2{
+font-size:16px
+}
+
+.nav-actions{
+justify-content:flex-end
+}
+
+.btn-acao{
+padding:7px 9px;
+font-size:11px
+}
+
+.cards,
+.grid-2{
+grid-template-columns:1fr
+}
+
+.prontuario-card{
+padding:18px
+}
+
+.flex{
+flex-direction:column
+}
+
+.flex button{
+width:100%
+}
+
+.tabela-sinais{
+min-width:600px
+}
+
+.agenda-grid{
+grid-template-columns:1fr
+}
+
+.agenda-acoes{
+flex-direction:column
+}
+
+.agenda-acoes button{
+width:100%
+}
+
+}
+
+@media(max-width:380px){
+
+.navbar{
+flex-direction:column
+}
+
+.nav-actions{
+width:100%
+}
+
+.nav-actions button{
+flex:1
+}
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =================================
+     LOGIN
+================================= -->
+
+<div class="container" id="telaLogin">
+
+<div class="card">
+
+<div class="logo">
+
+<div class="icone">
+✚
+</div>
+
+<h1>
+Clínica Psiquiátrica
+</h1>
+
+<p style="color:#718096;font-size:13px;margin-top:4px">
+Sis Enfermagem
+</p>
+
+</div>
+
+
+<div id="msgLogin" class="msg"></div>
+
+
+<form id="formLogin">
+
+<div class="form-group">
+
+<label>
+E-mail
+</label>
+
+<input
+type="email"
+id="lEmail"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Senha
+</label>
+
+<input
+type="password"
+id="lSenha"
+required>
+
+</div>
+
+
+<button>
+Entrar
+</button>
+
+</form>
+
+
+<div
+class="link"
+onclick="trocarTela('telaLogin','telaCadastro')">
+
+Não tem cadastro?
+<b>Cadastre-se</b>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =================================
+     CADASTRO
+================================= -->
+
+<div
+class="container"
+id="telaCadastro"
+style="display:none">
+
+<div class="card">
+
+<div class="logo">
+
+<div class="icone">
+👤
+</div>
+
+<h1>
+Criar conta
+</h1>
+
+</div>
+
+
+<div id="msgCad" class="msg"></div>
+
+
+<form id="formCad">
+
+<div class="form-group">
+
+<label>
+Nome completo
+</label>
+
+<input
+id="cNome"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+E-mail
+</label>
+
+<input
+type="email"
+id="cEmail"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Senha
+</label>
+
+<input
+type="password"
+id="cSenha"
+minlength="6"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Confirmar senha
+</label>
+
+<input
+type="password"
+id="cConf"
+required>
+
+</div>
+
+
+<button>
+Cadastrar
+</button>
+
+</form>
+
+
+<div
+class="link"
+onclick="trocarTela('telaCadastro','telaLogin')">
+
+Já possui conta?
+<b>Faça login</b>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =================================
+     POPUP
+================================= -->
+
+<div
+class="popup"
+id="popupImagem"
+onclick="fecharPopup(event)">
+
+<div class="popup-box">
+
+<button
+class="popup-close"
+onclick="fecharPopup()">
+×
+</button>
+
+<img
+src="img.jpeg"
+alt="Imagem da clínica">
+
+</div>
+
+</div>
+
+
+
+<!-- =================================
+     DASHBOARD
+================================= -->
+
+<div id="dashboard">
+
+<header class="navbar">
+
+<h2>
+Sis Enfermagem
+</h2>
+
+
+<div class="nav-actions">
+
+<button
+class="btn-acao btn-backup"
+onclick="fazerBackup()">
+
+💾 Backup
+
+</button>
+
+
+<button
+class="btn-acao btn-restaurar"
+onclick="document.getElementById('inputRestaurar').click()">
+
+📥 Restaurar
+
+</button>
+
+
+<input
+type="file"
+id="inputRestaurar"
+hidden
+accept=".json"
+onchange="restaurarBackup(event)">
+
+
+<button
+class="btn-acao btn-sair"
+onclick="sair()">
+
+Sair
+
+</button>
+
+</div>
+
+</header>
+
+
+<main class="content">
+
+<div
+id="msgDashboard"
+class="msg">
+</div>
+
+
+<h1 style="color:#273469;font-size:24px">
+
+Painel Principal
+
+</h1>
+
+
+<div class="cards">
+
+
+<div
+class="menu-card"
+onclick="abrirProntuario()">
+
+<div class="card-icon azul">
+📋
+</div>
+
+<h3>
+Prontuário
+</h3>
+
+<p>
+Registre informações clínicas dos pacientes.
+</p>
+
+</div>
+
+
+<div
+class="menu-card"
+onclick="abrirConsultas()">
+
+<div class="card-icon verde">
+🩺
+</div>
+
+<h3>
+Consultas
+</h3>
+
+<p>
+Pesquise, visualize e edite prontuários.
+</p>
+
+</div>
+
+
+<div
+class="menu-card"
+onclick="abrirAgenda()">
+
+<div class="card-icon roxo">
+📅
+</div>
+
+<h3>
+Agenda
+</h3>
+
+<p>
+Organize horários e compromissos.
+</p>
+
+</div>
+
+
+</div>
+
+</main>
+
+</div>
+
+
+
+<!-- =================================
+     PRONTUÁRIO
+================================= -->
+
+<div
+id="telaProntuario"
+class="modulo-tela">
+
+<header class="navbar">
+
+<h2>
+Módulo - Prontuário
+</h2>
+
+<button
+class="btn-acao btn-sair"
+onclick="sair()">
+Sair
+</button>
+
+</header>
+
+
+<main class="content">
+
+<button
+class="btn-voltar"
+onclick="voltarDashboard()">
+
+← Voltar ao Início
+
+</button>
+
+
+<div
+id="msgProntuario"
+class="msg">
+</div>
+
+
+<form id="formProntuario">
+
+
+<div class="prontuario-card">
+
+<h3>
+Identificação
+</h3>
+
+<div class="form-group">
+
+<label>
+Nº do Prontuário
+</label>
+
+<input
+id="numProntuario"
+required>
+
+</div>
+
+</div>
+
+
+
+<div class="prontuario-card">
+
+<h3>
+Dados Pessoais do Paciente
+</h3>
+
+
+<div class="form-group">
+
+<label>
+Nome Completo
+</label>
+
+<input
+id="pNome"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Data de Nascimento
+</label>
+
+<input
+type="date"
+id="pNasc"
+required>
+
+</div>
+
+
+<div class="grid-2">
+
+<div class="form-group">
+
+<label>
+Telefone
+</label>
+
+<input
+id="pTelefone"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+CPF
+</label>
+
+<input
+id="pCpf"
+maxlength="14"
+oninput="mascaraCpf(this)"
+required>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Filiação
+</label>
+
+<input
+id="pFiliacao"
+required>
+
+</div>
+
+</div>
+
+
+
+<div class="prontuario-card">
+
+<h3>
+Dados Clínicos
+</h3>
+
+
+<div class="grid-2">
+
+<div class="form-group">
+
+<label>
+Leito
+</label>
+
+<input
+id="cLeito"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Quarto
+</label>
+
+<input
+id="cQuarto"
+required>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Alergia?
+</label>
+
+<select
+id="cAlergia"
+onchange="toggleCampo('cAlergia','boxAlergia')"
+required>
+
+<option value="">
+Selecione...
+</option>
+
+<option value="N">
+Não
+</option>
+
+<option value="S">
+Sim
+</option>
+
+</select>
+
+
+<div
+id="boxAlergia"
+class="condicional">
+
+<input
+id="cQualAlergia"
+placeholder="Qual(is) alergia(s)?">
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Medicação em uso?
+</label>
+
+<select
+id="cMedicacao"
+onchange="toggleCampo('cMedicacao','boxMedicacao')"
+required>
+
+<option value="">
+Selecione...
+</option>
+
+<option value="N">
+Não
+</option>
+
+<option value="S">
+Sim
+</option>
+
+</select>
+
+
+<div
+id="boxMedicacao"
+class="condicional">
+
+<input
+id="cQuaisMedicacoes"
+placeholder="Quais medicações e dosagens?">
+
+</div>
+
+</div>
+
+
+<div class="grid-2">
+
+<div class="form-group">
+
+<label>
+Estágio
+</label>
+
+<select
+id="cGravidade"
+required>
+
+<option value="">
+Selecione...
+</option>
+
+<option>
+Leve
+</option>
+
+<option>
+Moderado
+</option>
+
+<option>
+Grave
+</option>
+
+<option>
+Crítico
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Horários de Visita
+</label>
+
+<input
+id="cVisita"
+placeholder="14:00 - 16:00"
+required>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Observações Clínicas
+</label>
+
+<textarea
+id="cObservacao">
+</textarea>
+
+</div>
+
+</div>
+
+
+
+<div class="prontuario-card">
+
+<h3>
+Evolução Diária e Sinais Vitais
+</h3>
+
+
+<div style="overflow:auto">
+
+<table class="tabela-sinais">
+
+<thead>
+
+<tr>
+
+<th>
+Temperatura
+</th>
+
+<th>
+FC
+</th>
+
+<th>
+PA
+</th>
+
+<th>
+SpO2
+</th>
+
+<th>
+Glicemia
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+<tr>
+
+<td>
+<input
+id="vTemp"
+placeholder="36.5">
+</td>
+
+<td>
+<input
+id="vFc"
+placeholder="80">
+</td>
+
+<td>
+<input
+id="vPa"
+placeholder="120/80">
+</td>
+
+<td>
+<input
+id="vSpo2"
+placeholder="98">
+</td>
+
+<td>
+<input
+id="vGlicemia"
+placeholder="99">
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<div class="grid-2">
+
+<div class="form-group">
+
+<label>
+Risco de Queda
+</label>
+
+<select
+id="cRiscoQueda"
+required>
+
+<option value="">
+Selecione...
+</option>
+
+<option value="B">
+Baixa (B)
+</option>
+
+<option value="M">
+Média (M)
+</option>
+
+<option value="A">
+Alta (A)
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Precauções?
+</label>
+
+<select
+id="cPrecaucao"
+onchange="toggleCampo('cPrecaucao','boxPrecaucao')"
+required>
+
+<option value="">
+Selecione...
+</option>
+
+<option value="N">
+Não
+</option>
+
+<option value="S">
+Sim
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div
+id="boxPrecaucao"
+class="condicional form-group">
+
+<label>
+Quais precauções?
+</label>
+
+<textarea
+id="cQuaisPrecaucoes">
+</textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Evolução Diária
+</label>
+
+<textarea
+id="cEvolucao"
+style="min-height:100px"
+required>
+</textarea>
+
+</div>
+
+</div>
+
+
+
+<div class="prontuario-card">
+
+<h3>
+Acompanhante / Responsável
+</h3>
+
+
+<div class="form-group">
+
+<label>
+Nome Completo
+</label>
+
+<input
+id="aNome"
+required>
+
+</div>
+
+
+<div class="grid-2">
+
+<div class="form-group">
+
+<label>
+Telefone
+</label>
+
+<input
+id="aTelefone"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+CPF
+</label>
+
+<input
+id="aCpf"
+maxlength="14"
+oninput="mascaraCpf(this)"
+required>
+
+</div>
+
+</div>
+
+
+<div class="grid-2">
+
+<div class="form-group">
+
+<label>
+Endereço
+</label>
+
+<input
+id="aEnd"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Data de Nascimento
+</label>
+
+<input
+type="date"
+id="aNasc"
+required>
+
+</div>
+
+</div>
+
+</div>
+
+
+<button
+style="background:#10b981;font-size:16px;margin-bottom:30px">
+
+Salvar Prontuário
+
+</button>
+
+</form>
+
+</main>
+
+</div>
+
+
+
+<!-- =================================
+     CONSULTAS
+================================= -->
+
+<div
+id="telaConsultas"
+class="modulo-tela">
+
+<header class="navbar">
+
+<h2>
+Módulo - Consultas
+</h2>
+
+<button
+class="btn-acao btn-sair"
+onclick="sair()">
+Sair
+</button>
+
+</header>
+
+
+<main class="content">
+
+<button
+class="btn-voltar"
+onclick="voltarDashboard()">
+
+← Voltar ao Início
+
+</button>
+
+
+<div
+id="msgConsulta"
+class="msg">
+</div>
+
+
+<div class="prontuario-card">
+
+<h3>
+Pesquisar Prontuário
+</h3>
+
+
+<div class="flex">
+
+<input
+id="conProntuarioBusca"
+placeholder="Número do prontuário">
+
+
+<button
+type="button"
+onclick="carregarProntuarioConsulta()">
+
+Pesquisar
+
+</button>
+
+</div>
+
+</div>
+
+
+<form
+id="formConsultaEdicao"
+style="display:none">
+
+<input
+type="hidden"
+id="conOriginalNum">
+
+
+<div class="prontuario-card">
+
+<h3>
+Dados do Paciente
+</h3>
+
+
+<div class="form-group">
+
+<label>
+Nome Completo
+</label>
+
+<input
+id="conPNome"
+required>
+
+</div>
+
+
+<div class="grid-2">
+
+<div class="form-group">
+
+<label>
+Telefone
+</label>
+
+<input
+id="conPTelefone"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+CPF
+</label>
+
+<input
+id="conPCpf"
+maxlength="14"
+oninput="mascaraCpf(this)"
+required>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Filiação
+</label>
+
+<input
+id="conPFiliacao"
+required>
+
+</div>
+
+</div>
+
+
+
+<div class="prontuario-card">
+
+<h3>
+Dados Clínicos
+</h3>
+
+
+<div class="grid-2">
+
+<div class="form-group">
+
+<label>
+Leito
+</label>
+
+<input
+id="conCLeito"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Quarto
+</label>
+
+<input
+id="conCQuarto"
+required>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Alergia?
+</label>
+
+<select
+id="conCAlergia"
+onchange="toggleCampo('conCAlergia','conBoxAlergia')"
+required>
+
+<option value="N">
+Não
+</option>
+
+<option value="S">
+Sim
+</option>
+
+</select>
+
+
+<div
+id="conBoxAlergia"
+class="condicional">
+
+<input
+id="conCQualAlergia">
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Medicação em uso?
+</label>
+
+<select
+id="conCMedicacao"
+onchange="toggleCampo('conCMedicacao','conBoxMedicacao')"
+required>
+
+<option value="N">
+Não
+</option>
+
+<option value="S">
+Sim
+</option>
+
+</select>
+
+
+<div
+id="conBoxMedicacao"
+class="condicional">
+
+<input
+id="conCQuaisMedicacoes">
+
+</div>
+
+</div>
+
+
+<div class="grid-2">
+
+<div class="form-group">
+
+<label>
+Estágio
+</label>
+
+<select
+id="conCGravidade"
+required>
+
+<option>
+Leve
+</option>
+
+<option>
+Moderado
+</option>
+
+<option>
+Grave
+</option>
+
+<option>
+Crítico
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Horários de Visita
+</label>
+
+<input
+id="conCVisita"
+required>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Observações
+</label>
+
+<textarea
+id="conCObservacao">
+</textarea>
+
+</div>
+
+</div>
+
+
+
+<div class="prontuario-card">
+
+<h3>
+Evolução e Sinais Vitais
+</h3>
+
+
+<div style="overflow:auto">
+
+<table class="tabela-sinais">
+
+<thead>
+
+<tr>
+
+<th>Temperatura</th>
+<th>FC</th>
+<th>PA</th>
+<th>SpO2</th>
+<th>Glicemia</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+<tr>
+
+<td>
+<input id="conVTemp">
+</td>
+
+<td>
+<input id="conVFc">
+</td>
+
+<td>
+<input id="conVPa">
+</td>
+
+<td>
+<input id="conVSpo2">
+</td>
+
+<td>
+<input id="conVGlicemia">
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<div class="grid-2">
+
+<div class="form-group">
+
+<label>
+Risco de Queda
+</label>
+
+<select
+id="conCRiscoQueda"
+required>
+
+<option value="B">
+Baixa (B)
+</option>
+
+<option value="M">
+Média (M)
+</option>
+
+<option value="A">
+Alta (A)
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Precauções?
+</label>
+
+<select
+id="conCPrecaucao"
+onchange="toggleCampo('conCPrecaucao','conBoxPrecaucao')"
+required>
+
+<option value="N">
+Não
+</option>
+
+<option value="S">
+Sim
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div
+id="conBoxPrecaucao"
+class="condicional form-group">
+
+<label>
+Quais precauções?
+</label>
+
+<textarea
+id="conCQuaisPrecaucoes">
+</textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Evolução
+</label>
+
+<textarea
+id="conCEvolucao"
+style="min-height:100px"
+required>
+</textarea>
+
+</div>
+
+</div>
+
+
+
+<div class="prontuario-card">
+
+<h3>
+Acompanhante / Responsável
+</h3>
+
+
+<div class="form-group">
+
+<label>
+Nome Completo
+</label>
+
+<input
+id="conANome"
+required>
+
+</div>
+
+
+<div class="grid-2">
+
+<div class="form-group">
+
+<label>
+Telefone
+</label>
+
+<input
+id="conATelefone"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+CPF
+</label>
+
+<input
+id="conACpf"
+maxlength="14"
+oninput="mascaraCpf(this)"
+required>
+
+</div>
+
+</div>
+
+
+<div class="grid-2">
+
+<div class="form-group">
+
+<label>
+Endereço
+</label>
+
+<input
+id="conAEnd"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Nascimento
+</label>
+
+<input
+type="date"
+id="conANasc"
+required>
+
+</div>
+
+</div>
+
+</div>
+
+
+<button
+style="background:#2563eb;font-size:16px;margin-bottom:30px">
+
+Atualizar Prontuário
+
+</button>
+
+</form>
+
+</main>
+
+</div>
+
+
+
+<!-- =================================
+     AGENDA
+================================= -->
+
+<div
+id="telaAgenda"
+class="modulo-tela">
+
+<header class="navbar">
+
+<h2>
+Módulo - Agenda
+</h2>
+
+
+<button
+class="btn-acao btn-sair"
+onclick="sair()">
+
+Sair
+
+</button>
+
+</header>
+
+
+<main class="content">
+
+
+<button
+class="btn-voltar"
+onclick="voltarDashboard()">
+
+← Voltar ao Início
+
+</button>
+
+
+<div
+id="msgAgenda"
+class="msg">
+</div>
+
+
+
+<!-- PESQUISA DO PACIENTE -->
+
+<div class="prontuario-card">
+
+<h3>
+🔎 Pesquisar Paciente
+</h3>
+
+
+<div class="flex">
+
+<input
+id="agProntuarioBusca"
+placeholder="Número do prontuário">
+
+
+<button
+type="button"
+onclick="buscarPacienteAgenda()">
+
+Pesquisar
+
+</button>
+
+</div>
+
+
+<div
+id="infoPacienteAgenda"
+style="display:none;margin-top:15px;color:#4f6bed;font-weight:bold">
+
+Paciente:
+
+<span
+id="nomePacienteEncontrado"
+style="color:#273469;font-weight:normal">
+</span>
+
+</div>
+
+
+<!-- LISTA DOS AGENDAMENTOS -->
+
+<div
+id="listaAgendaPaciente"
+class="lista-agenda">
+</div>
+
+</div>
+
+
+
+<!-- NOVO / EDITAR AGENDAMENTO -->
+
+<form
+id="formAgenda">
+
+
+<input
+type="hidden"
+id="agChaveEdicao">
+
+
+<div class="prontuario-card">
+
+<h3 id="tituloFormularioAgenda">
+
+📅 Novo Agendamento
+
+</h3>
+
+
+<div class="grid-2">
+
+<div class="form-group">
+
+<label>
+Data
+</label>
+
+<input
+type="date"
+id="agData"
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Horário
+</label>
+
+<input
+type="time"
+id="agHorario"
+required>
+
+</div>
+
+</div>
+
+
+<div class="grid-2">
+
+<div class="form-group">
+
+<label>
+Atividade
+</label>
+
+<input
+id="agAtividade"
+placeholder="Ex.: Consulta, Terapia..."
+required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Profissional
+</label>
+
+<input
+id="agProfissional"
+placeholder="Nome do profissional"
+required>
+
+</div>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Presença / Observações
+</label>
+
+<textarea
+id="agPresencaObs"
+placeholder="Digite informações sobre presença, observações, retorno etc.">
+</textarea>
+
+</div>
+
+
+<div
+class="flex"
+style="justify-content:flex-end">
+
+
+<button
+type="submit"
+id="btnSalvarAgenda"
+style="background:#10b981">
+
+💾 Salvar Agendamento
+
+</button>
+
+
+<button
+type="button"
+id="btnCancelarEdicao"
+class="btn-cancelar-agenda"
+onclick="cancelarEdicaoAgenda()">
+
+Cancelar
+
+</button>
+
+</div>
+
+</div>
+
+</form>
+
+
+</main>
+
+</div>
+
+
+
+<script>
+
+
+/* =================================
+   FUNÇÃO $
+================================= */
+
+const $ =
+id =>
+document.getElementById(id);
+
+
+
+/* =================================
+   TROCAR TELA
+================================= */
+
+function trocarTela(a,b){
+
+$(a).style.display='none';
+
+if(
+b==='telaLogin' ||
+b==='telaCadastro'
+){
+
+$(b).style.display='flex';
+
+}else{
+
+$(b).style.display='block';
+
+}
+
+window.scrollTo({
+top:0,
+behavior:'instant'
+});
+
+}
+
+
+
+/* =================================
+   MENSAGEM
+================================= */
+
+function msg(id,text,tipo){
+
+const e=$(id);
+
+e.textContent=text;
+
+e.className=
+`msg ${tipo}`;
+
+e.style.display='block';
+
+}
+
+
+
+/* =================================
+   CPF
+================================= */
+
+function mascaraCpf(i){
+
+let v=
+i.value
+.replace(/\D/g,'')
+.slice(0,11);
+
+if(v.length>9)
+
+v=
+v.replace(
+/^(\d{3})(\d{3})(\d{3})(\d{2}).*/,
+'$1.$2.$3-$4'
+);
+
+else if(v.length>6)
+
+v=
+v.replace(
+/^(\d{3})(\d{3})(\d{3}).*/,
+'$1.$2.$3'
+);
+
+else if(v.length>3)
+
+v=
+v.replace(
+/^(\d{3})(\d{3}).*/,
+'$1.$2'
+);
+
+i.value=v;
+
+}
+
+
+
+/* =================================
+   CAMPOS CONDICIONAIS
+================================= */
+
+function toggleCampo(select,box){
+
+const s=$(select);
+
+const b=$(box);
+
+const i=
+b.querySelector('input,textarea');
+
+b.style.display=
+s.value==='S'
+?
+'block'
+:
+'none';
+
+if(i){
+
+i.required=
+s.value==='S';
+
+if(s.value!=='S')
+i.value='';
+
+}
+
+}
+
+
+
+/* =================================
+   CADASTRO
+================================= */
+
+$('formCad').onsubmit=e=>{
+
+e.preventDefault();
+
+
+if(
+$('cSenha').value !==
+$('cConf').value
+)
+
+return msg(
+'msgCad',
+'As senhas não coincidem.',
+'erro'
+);
+
+
+localStorage.setItem(
+'userClinica',
+JSON.stringify({
+
+nome:
+$('cNome').value,
+
+email:
+$('cEmail').value,
+
+senha:
+$('cSenha').value
+
+})
+);
+
+
+msg(
+'msgCad',
+'Cadastro realizado com sucesso!',
+'sucesso'
+);
+
+
+setTimeout(
+()=>
+trocarTela(
+'telaCadastro',
+'telaLogin'
+),
+1000
+);
+
+};
+
+
+
+/* =================================
+   LOGIN
+================================= */
+
+$('formLogin').onsubmit=e=>{
+
+e.preventDefault();
+
+
+const u=
+JSON.parse(
+localStorage.getItem(
+'userClinica'
+)||'null'
+);
+
+
+if(
+!u ||
+u.email !== $('lEmail').value ||
+u.senha !== $('lSenha').value
+)
+
+return msg(
+'msgLogin',
+'E-mail ou senha incorretos.',
+'erro'
+);
+
+
+$('telaLogin').style.display='none';
+
+$('dashboard').style.display='block';
+
+abrirPopup();
+
+};
+
+
+
+/* =================================
+   POPUP
+================================= */
+
+function abrirPopup(){
+
+$('popupImagem')
+.classList
+.add('show');
+
+document.body.style.overflow='hidden';
+
+}
+
+
+function fecharPopup(e){
+
+if(
+!e ||
+e.target.id==='popupImagem' ||
+e.target.classList.contains('popup-close')
+){
+
+$('popupImagem')
+.classList
+.remove('show');
+
+document.body.style.overflow='';
+
+}
+
+}
+
+
+document.addEventListener(
+'keydown',
+e=>{
+
+if(e.key==='Escape')
+fecharPopup();
+
+}
+);
+
+
+
+/* =================================
+   NAVEGAÇÃO
+================================= */
+
+function abrirProntuario(){
+
+$('dashboard').style.display='none';
+
+$('telaProntuario').style.display='block';
+
+$('numProntuario').value=
+Math.floor(
+100000+
+Math.random()*900000
+);
+
+window.scrollTo(0,0);
+
+}
+
+
+function abrirConsultas(){
+
+$('dashboard').style.display='none';
+
+$('telaConsultas').style.display='block';
+
+$('formConsultaEdicao').style.display='none';
+
+$('conProntuarioBusca').value='';
+
+window.scrollTo(0,0);
+
+}
+
+
+/* =================================
+   ABRIR AGENDA
+================================= */
+
+function abrirAgenda(){
+
+$('dashboard').style.display='none';
+
+$('telaAgenda').style.display='block';
+
+
+/*
+   SEMPRE LIMPA A AGENDA
+   QUANDO ENTRA NO MÓDULO
+*/
+
+limparAgenda();
+
+
+window.scrollTo(0,0);
+
+}
+
+
+
+/* =================================
+   LIMPAR AGENDA
+================================= */
+
+function limparAgenda(){
+
+$('agProntuarioBusca').value='';
+
+$('nomePacienteEncontrado').textContent='';
+
+$('infoPacienteAgenda')
+.style
+.display='none';
+
+
+$('listaAgendaPaciente')
+.innerHTML='';
+
+
+$('agChaveEdicao').value='';
+
+$('agData').value='';
+
+$('agHorario').value='';
+
+$('agAtividade').value='';
+
+$('agProfissional').value='';
+
+$('agPresencaObs').value='';
+
+
+$('tituloFormularioAgenda')
+.textContent=
+'📅 Novo Agendamento';
+
+
+$('btnSalvarAgenda')
+.textContent=
+'💾 Salvar Agendamento';
+
+
+$('btnSalvarAgenda')
+.style
+.background='#10b981';
+
+
+$('btnCancelarEdicao')
+.style
+.display='none';
+
+
+$('msgAgenda').style.display='none';
+
+}
+
+
+
+/* =================================
+   VOLTAR DASHBOARD
+================================= */
+
+function voltarDashboard(){
+
+document
+.querySelectorAll('.modulo-tela')
+.forEach(
+e=>
+e.style.display='none'
+);
+
+
+$('dashboard')
+.style
+.display='block';
+
+
+/*
+   LIMPA A AGENDA AO SAIR
+*/
+
+limparAgenda();
+
+window.scrollTo(0,0);
+
+}
+
+
+
+/* =================================
+   BACKUP
+================================= */
+
+function fazerBackup(){
+
+const dados={};
+
+
+for(
+let i=0;
+i<localStorage.length;
+i++
+){
+
+const k=
+localStorage.key(i);
+
+dados[k]=
+localStorage.getItem(k);
+
+}
+
+
+const a=
+document.createElement('a');
+
+
+a.href=
+'data:application/json;charset=utf-8,'+
+encodeURIComponent(
+JSON.stringify(dados)
+);
+
+
+a.download=
+`backup_clinica_${new Date()
+.toISOString()
+.slice(0,10)}.json`;
+
+
+a.click();
+
+}
+
+
+
+/* =================================
+   RESTAURAR
+================================= */
+
+function restaurarBackup(e){
+
+const f=
+e.target.files[0];
+
+if(!f)return;
+
+
+const r=
+new FileReader();
+
+
+r.onload=x=>{
+
+try{
+
+const dados=
+JSON.parse(
+x.target.result
+);
+
+
+localStorage.clear();
+
+
+Object.entries(dados)
+.forEach(
+([k,v])=>
+localStorage.setItem(k,v)
+);
+
+
+alert(
+'Backup restaurado com sucesso. O sistema será recarregado.'
+);
+
+
+location.reload();
+
+
+}catch{
+
+alert(
+'Arquivo de backup inválido.'
+);
+
+}
+
+};
+
+
+r.readAsText(f);
+
+}
+
+
+
+/* =================================
+   COLETAR PRONTUÁRIO
+================================= */
+
+function coletarProntuario(){
+
+return{
+
+numero:
+$('numProntuario').value,
+
+paciente:{
+
+nome:
+$('pNome').value,
+
+nascimento:
+$('pNasc').value,
+
+telefone:
+$('pTelefone').value,
+
+cpf:
+$('pCpf').value,
+
+filiacao:
+$('pFiliacao').value
+
+},
+
+clinico:{
+
+leito:
+$('cLeito').value,
+
+quarto:
+$('cQuarto').value,
+
+alergia:
+$('cAlergia').value,
+
+qualAlergia:
+$('cQualAlergia').value ||
+'Nenhuma',
+
+medicacao:
+$('cMedicacao').value,
+
+quaisMedicacoes:
+$('cQuaisMedicacoes').value ||
+'Nenhuma',
+
+gravidade:
+$('cGravidade').value,
+
+visita:
+$('cVisita').value,
+
+observacao:
+$('cObservacao').value
+
+},
+
+evolucaoDiaria:{
+
+sinaisVitais:{
+
+temperatura:
+$('vTemp').value,
+
+fc:
+$('vFc').value,
+
+pa:
+$('vPa').value,
+
+spo2:
+$('vSpo2').value,
+
+glicemia:
+$('vGlicemia').value
+
+},
+
+riscoQueda:
+$('cRiscoQueda').value,
+
+precaucao:
+$('cPrecaucao').value,
+
+quaisPrecaucoes:
+$('cQuaisPrecaucoes').value ||
+'Nenhuma',
+
+evolucao:
+$('cEvolucao').value
+
+},
+
+acompanhante:{
+
+nome:
+$('aNome').value,
+
+telefone:
+$('aTelefone').value,
+
+cpf:
+$('aCpf').value,
+
+endereco:
+$('aEnd').value,
+
+nascimento:
+$('aNasc').value
+
+}
+
+};
+
+}
+
+
+
+/* =================================
+   SALVAR PRONTUÁRIO
+================================= */
+
+$('formProntuario').onsubmit=e=>{
+
+e.preventDefault();
+
+
+const p=
+coletarProntuario();
+
+
+localStorage.setItem(
+`prontuario_${p.numero}`,
+JSON.stringify(p)
+);
+
+
+msg(
+'msgProntuario',
+`Prontuário nº ${p.numero} salvo com sucesso!`,
+'sucesso'
+);
+
+
+setTimeout(()=>{
+
+$('formProntuario').reset();
+
+
+[
+'boxAlergia',
+'boxMedicacao',
+'boxPrecaucao'
+]
+.forEach(
+x=>
+$(x).style.display='none'
+);
+
+
+voltarDashboard();
+
+},1200);
+
+};
+
+
+
+/* =================================
+   CONSULTA
+================================= */
+
+function carregarProntuarioConsulta(){
+
+const n=
+$('conProntuarioBusca')
+.value
+.trim();
+
+
+const dados=
+localStorage.getItem(
+`prontuario_${n}`
+);
+
+
+if(!dados){
+
+alert(
+'Prontuário não encontrado!'
+);
+
+return;
+
+}
+
+
+const p=
+JSON.parse(dados);
+
+
+$('conOriginalNum').value=
+p.numero;
+
+
+$('conPNome').value=
+p.paciente.nome;
+
+$('conPTelefone').value=
+p.paciente.telefone;
+
+$('conPCpf').value=
+p.paciente.cpf;
+
+$('conPFiliacao').value=
+p.paciente.filiacao;
+
+
+$('conCLeito').value=
+p.clinico.leito;
+
+$('conCQuarto').value=
+p.clinico.quarto;
+
+
+$('conCAlergia').value=
+p.clinico.alergia;
+
+toggleCampo(
+'conCAlergia',
+'conBoxAlergia'
+);
+
+
+$('conCQualAlergia').value=
+p.clinico.qualAlergia==='Nenhuma'
+?
+''
+:
+p.clinico.qualAlergia;
+
+
+$('conCMedicacao').value=
+p.clinico.medicacao;
+
+toggleCampo(
+'conCMedicacao',
+'conBoxMedicacao'
+);
+
+
+$('conCQuaisMedicacoes').value=
+p.clinico.quaisMedicacoes==='Nenhuma'
+?
+''
+:
+p.clinico.quaisMedicacoes;
+
+
+$('conCGravidade').value=
+p.clinico.gravidade;
+
+$('conCVisita').value=
+p.clinico.visita;
+
+$('conCObservacao').value=
+p.clinico.observacao;
+
+
+const s=
+p.evolucaoDiaria.sinaisVitais;
+
+
+$('conVTemp').value=
+s.temperatura;
+
+$('conVFc').value=
+s.fc;
+
+$('conVPa').value=
+s.pa;
+
+$('conVSpo2').value=
+s.spo2;
+
+$('conVGlicemia').value=
+s.glicemia;
+
+
+$('conCRiscoQueda').value=
+p.evolucaoDiaria.riscoQueda;
+
+$('conCPrecaucao').value=
+p.evolucaoDiaria.precaucao;
+
+toggleCampo(
+'conCPrecaucao',
+'conBoxPrecaucao'
+);
+
+
+$('conCQuaisPrecaucoes').value=
+p.evolucaoDiaria.quaisPrecaucoes==='Nenhuma'
+?
+''
+:
+p.evolucaoDiaria.quaisPrecaucoes;
+
+
+$('conCEvolucao').value=
+p.evolucaoDiaria.evolucao;
+
+
+$('conANome').value=
+p.acompanhante.nome;
+
+$('conATelefone').value=
+p.acompanhante.telefone;
+
+$('conACpf').value=
+p.acompanhante.cpf;
+
+$('conAEnd').value=
+p.acompanhante.endereco;
+
+$('conANasc').value=
+p.acompanhante.nascimento;
+
+
+$('formConsultaEdicao')
+.style
+.display='block';
+
+
+msg(
+'msgConsulta',
+'Prontuário carregado para edição.',
+'sucesso'
+);
+
+}
+
+
+
+/* =================================
+   CONSULTA - ATUALIZAR
+================================= */
+
+$('formConsultaEdicao').onsubmit=e=>{
+
+e.preventDefault();
+
+
+const numero=
+$('conOriginalNum').value;
+
+
+const p={
+
+numero:numero,
+
+paciente:{
+
+nome:
+$('conPNome').value,
+
+telefone:
+$('conPTelefone').value,
+
+cpf:
+$('conPCpf').value,
+
+filiacao:
+$('conPFiliacao').value
+
+},
+
+clinico:{
+
+leito:
+$('conCLeito').value,
+
+quarto:
+$('conCQuarto').value,
+
+alergia:
+$('conCAlergia').value,
+
+qualAlergia:
+$('conCQualAlergia').value ||
+'Nenhuma',
+
+medicacao:
+$('conCMedicacao').value,
+
+quaisMedicacoes:
+$('conCQuaisMedicacoes').value ||
+'Nenhuma',
+
+gravidade:
+$('conCGravidade').value,
+
+visita:
+$('conCVisita').value,
+
+observacao:
+$('conCObservacao').value
+
+},
+
+evolucaoDiaria:{
+
+sinaisVitais:{
+
+temperatura:
+$('conVTemp').value,
+
+fc:
+$('conVFc').value,
+
+pa:
+$('conVPa').value,
+
+spo2:
+$('conVSpo2').value,
+
+glicemia:
+$('conVGlicemia').value
+
+},
+
+riscoQueda:
+$('conCRiscoQueda').value,
+
+precaucao:
+$('conCPrecaucao').value,
+
+quaisPrecaucoes:
+$('conCQuaisPrecaucoes').value ||
+'Nenhuma',
+
+evolucao:
+$('conCEvolucao').value
+
+},
+
+acompanhante:{
+
+nome:
+$('conANome').value,
+
+telefone:
+$('conATelefone').value,
+
+cpf:
+$('conACpf').value,
+
+endereco:
+$('conAEnd').value,
+
+nascimento:
+$('conANasc').value
+
+}
+
+};
+
+
+localStorage.setItem(
+`prontuario_${numero}`,
+JSON.stringify(p)
+);
+
+
+msg(
+'msgConsulta',
+`Prontuário nº ${numero} atualizado com sucesso!`,
+'sucesso'
+);
+
+};
+
+
+
+/* ==================================================
+   AGENDA
+================================================== */
+
+
+/* =================================
+   PESQUISAR PACIENTE
+================================= */
+
+function buscarPacienteAgenda(){
+
+const n=
+$('agProntuarioBusca')
+.value
+.trim();
+
+
+if(!n){
+
+alert(
+'Digite o número do prontuário.'
+);
+
+return;
+
+}
+
+
+const p=
+localStorage.getItem(
+`prontuario_${n}`
+);
+
+
+if(!p){
+
+$('infoPacienteAgenda')
+.style
+.display='none';
+
+
+$('listaAgendaPaciente')
+.innerHTML='';
+
+
+alert(
+'Prontuário não encontrado!'
+);
+
+return;
+
+}
+
+
+const paciente=
+JSON.parse(p);
+
+
+$('nomePacienteEncontrado')
+.textContent=
+paciente.paciente.nome;
+
+
+$('infoPacienteAgenda')
+.style
+.display='block';
+
+
+mostrarAgendamentos(n);
+
+}
+
+
+
+/* =================================
+   MOSTRAR AGENDAMENTOS
+================================= */
+
+function mostrarAgendamentos(prontuario){
+
+const lista=
+$('listaAgendaPaciente');
+
+
+lista.innerHTML='';
+
+
+const agendamentos=[];
+
+
+for(
+let i=0;
+i<localStorage.length;
+i++
+){
+
+const chave=
+localStorage.key(i);
+
+
+if(
+chave &&
+chave.startsWith(
+`agenda_${prontuario}_`
+)
+){
+
+try{
+
+const dados=
+JSON.parse(
+localStorage.getItem(chave)
+);
+
+
+agendamentos.push({
+
+chave:chave,
+
+...dados
+
+});
+
+
+}catch(erro){
+
+console.error(
+'Erro ao ler agendamento:',
+erro
+);
+
+}
+
+}
+
+}
+
+
+/* NENHUM */
+
+if(agendamentos.length===0){
+
+lista.innerHTML=`
+
+<h3 class="titulo-lista-agenda">
+
+📅 Agenda do paciente
+
+</h3>
+
+<div class="sem-agenda">
+
+Nenhum agendamento encontrado
+para este paciente.
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+/* ORDENAR */
+
+agendamentos.sort((a,b)=>{
+
+const A=
+`${a.data || ''} ${a.horario || ''}`;
+
+const B=
+`${b.data || ''} ${b.horario || ''}`;
+
+return A.localeCompare(B);
+
+});
+
+
+lista.innerHTML=`
+
+<h3 class="titulo-lista-agenda">
+
+📅 Agenda do paciente
+
+<span class="badge-agenda">
+
+${agendamentos.length}
+agendamento(s)
+
+</span>
+
+</h3>
+
+`;
+
+
+/* MOSTRAR */
+
+agendamentos.forEach(
+(a,index)=>{
+
+
+let dataFormatada=
+a.data || '-';
+
+
+if(a.data){
+
+const partes=
+a.data.split('-');
+
+
+if(partes.length===3){
+
+dataFormatada=
+`${partes[2]}/${partes[1]}/${partes[0]}`;
+
+}
+
+}
+
+
+lista.innerHTML+=`
+
+<div
+class="agenda-item"
+id="agendaItem_${a.chave}">
+
+<h4>
+
+📌 Agendamento ${index+1}
+
+</h4>
+
+
+<div class="agenda-grid">
+
+
+<div>
+
+<strong>
+📅 Data:
+</strong>
+
+${dataFormatada}
+
+</div>
+
+
+<div>
+
+<strong>
+🕐 Horário:
+</strong>
+
+${a.horario || '-'}
+
+</div>
+
+
+<div>
+
+<strong>
+🩺 Atividade:
+</strong>
+
+${a.atividade || '-'}
+
+</div>
+
+
+<div>
+
+<strong>
+👨‍⚕️ Profissional:
+</strong>
+
+${a.profissional || '-'}
+
+</div>
+
+
+<div style="grid-column:1/-1">
+
+<strong>
+📝 Presença / Observações:
+</strong>
+
+${a.presencaObs || '-'}
+
+</div>
+
+
+</div>
+
+
+<div class="agenda-acoes">
+
+
+<button
+type="button"
+class="btn-editar-agenda"
+onclick="editarAgendamento('${a.chave}')">
+
+✏️ Editar
+
+</button>
+
+
+<button
+type="button"
+class="btn-excluir-agenda"
+onclick="excluirAgendamento('${a.chave}','${prontuario}')">
+
+🗑 Excluir
+
+</button>
+
+
+</div>
+
+
+</div>
+
+`;
+
+});
+
+}
+
+
+
+/* =================================
+   EDITAR AGENDAMENTO
+================================= */
+
+function editarAgendamento(chave){
+
+const dados=
+localStorage.getItem(chave);
+
+
+if(!dados){
+
+alert(
+'Agendamento não encontrado.'
+);
+
+return;
+
+}
+
+
+const a=
+JSON.parse(dados);
+
+
+/*
+   COLOCA OS DADOS NO FORMULÁRIO
+*/
+
+$('agChaveEdicao').value=
+chave;
+
+$('agData').value=
+a.data || '';
+
+$('agHorario').value=
+a.horario || '';
+
+$('agAtividade').value=
+a.atividade || '';
+
+$('agProfissional').value=
+a.profissional || '';
+
+$('agPresencaObs').value=
+a.presencaObs || '';
+
+
+/*
+   ALTERA O TÍTULO
+*/
+
+$('tituloFormularioAgenda')
+.textContent=
+'✏️ Editar Agendamento';
+
+
+/*
+   ALTERA O BOTÃO
+*/
+
+$('btnSalvarAgenda')
+.textContent=
+'💾 Atualizar Agendamento';
+
+
+$('btnSalvarAgenda')
+.style
+.background='#2563eb';
+
+
+/*
+   MOSTRA CANCELAR
+*/
+
+$('btnCancelarEdicao')
+.style
+.display='block';
+
+
+/*
+   ROLA ATÉ O FORMULÁRIO
+*/
+
+$('formAgenda')
+.scrollIntoView({
+behavior:'smooth',
+block:'start'
+});
+
+}
+
+
+
+/* =================================
+   CANCELAR EDIÇÃO
+================================= */
+
+function cancelarEdicaoAgenda(){
+
+$('agChaveEdicao').value='';
+
+$('agData').value='';
+
+$('agHorario').value='';
+
+$('agAtividade').value='';
+
+$('agProfissional').value='';
+
+$('agPresencaObs').value='';
+
+
+$('tituloFormularioAgenda')
+.textContent=
+'📅 Novo Agendamento';
+
+
+$('btnSalvarAgenda')
+.textContent=
+'💾 Salvar Agendamento';
+
+
+$('btnSalvarAgenda')
+.style
+.background='#10b981';
+
+
+$('btnCancelarEdicao')
+.style
+.display='none';
+
+}
+
+
+
+/* =================================
+   EXCLUIR AGENDAMENTO
+================================= */
+
+function excluirAgendamento(
+chave,
+prontuario
+){
+
+if(
+!confirm(
+'Deseja realmente excluir este agendamento?'
+)
+){
+
+return;
+
+}
+
+
+localStorage.removeItem(chave);
+
+
+mostrarAgendamentos(prontuario);
+
+
+msg(
+'msgAgenda',
+'Agendamento excluído com sucesso!',
+'sucesso'
+);
+
+}
+
+
+
+/* =================================
+   SALVAR / ATUALIZAR AGENDAMENTO
+================================= */
+
+$('formAgenda').onsubmit=e=>{
+
+e.preventDefault();
+
+
+const n=
+$('agProntuarioBusca')
+.value
+.trim();
+
+
+/*
+   CONFIRMA PRONTUÁRIO
+*/
+
+if(
+!localStorage.getItem(
+`prontuario_${n}`
+)
+){
+
+alert(
+'Pesquise primeiro um prontuário válido.'
+);
+
+return;
+
+}
+
+
+/*
+   VERIFICA SE ESTÁ EDITANDO
+*/
+
+const chaveEdicao=
+$('agChaveEdicao').value;
+
+
+/*
+   DADOS
+*/
+
+const a={
+
+prontuario:n,
+
+data:
+$('agData').value,
+
+horario:
+$('agHorario').value,
+
+atividade:
+$('agAtividade').value,
+
+profissional:
+$('agProfissional').value,
+
+presencaObs:
+$('agPresencaObs').value,
+
+atualizadoEm:
+new Date().toISOString()
+
+};
+
+
+/*
+   EDITAR
+*/
+
+if(chaveEdicao){
+
+const antigo=
+localStorage.getItem(
+chaveEdicao
+);
+
+
+if(!antigo){
+
+alert(
+'Agendamento não encontrado.'
+);
+
+cancelarEdicaoAgenda();
+
+return;
+
+}
+
+
+const dadosAntigos=
+JSON.parse(antigo);
+
+
+/*
+   MANTÉM A DATA DE CRIAÇÃO
+*/
+
+a.criadoEm=
+dadosAntigos.criadoEm ||
+new Date().toISOString();
+
+
+localStorage.setItem(
+chaveEdicao,
+JSON.stringify(a)
+);
+
+
+msg(
+'msgAgenda',
+'Agendamento atualizado com sucesso!',
+'sucesso'
+);
+
+
+/*
+   VOLTA PARA MODO NOVO
+*/
+
+cancelarEdicaoAgenda();
+
+
+/*
+   MOSTRA A LISTA ATUALIZADA
+*/
+
+mostrarAgendamentos(n);
+
+
+return;
+
+}
+
+
+/*
+   NOVO AGENDAMENTO
+*/
+
+const novaChave=
+`agenda_${n}_${Date.now()}`;
+
+
+a.criadoEm=
+new Date().toISOString();
+
+
+localStorage.setItem(
+novaChave,
+JSON.stringify(a)
+);
+
+
+msg(
+'msgAgenda',
+'Agendamento salvo com sucesso!',
+'sucesso'
+);
+
+
+/*
+   MOSTRA TODOS OS AGENDAMENTOS
+*/
+
+mostrarAgendamentos(n);
+
+
+/*
+   MANTÉM PACIENTE
+*/
+
+const paciente=
+JSON.parse(
+localStorage.getItem(
+`prontuario_${n}`
+)
+);
+
+
+$('nomePacienteEncontrado')
+.textContent=
+paciente.paciente.nome;
+
+
+$('infoPacienteAgenda')
+.style
+.display='block';
+
+
+/*
+   LIMPA SOMENTE
+   OS CAMPOS DO AGENDAMENTO
+*/
+
+$('agData').value='';
+
+$('agHorario').value='';
+
+$('agAtividade').value='';
+
+$('agProfissional').value='';
+
+$('agPresencaObs').value='';
+
+};
+
+
+
+/* =================================
+   SAIR
+================================= */
+
+function sair(){
+
+document
+.querySelectorAll(
+'#dashboard,.modulo-tela'
+)
+.forEach(
+e=>
+e.style.display='none'
+);
+
+
+$('lEmail').value='';
+
+$('lSenha').value='';
+
+
+limparAgenda();
+
+
+$('telaLogin')
+.style
+.display='flex';
+
+}
+
+</script>
+
+</body>
+
+</html>
+
+
+
