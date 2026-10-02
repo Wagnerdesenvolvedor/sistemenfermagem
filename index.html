@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -124,6 +125,7 @@ button:hover{filter:brightness(.9)}
 <div class="icone">✚</div>
 <h1>Clínica Psiquiátrica</h1>
 <p style="color:#718096;font-size:13px;margin-top:4px">Sis Enfermagem</p>
+<p style="color:#0284c7;font-size:11px;margin-top:6px">Acesso padrão: admin@clinica.com / 123456</p>
 </div>
 
 <div id="msgLogin" class="msg"></div>
@@ -131,7 +133,7 @@ button:hover{filter:brightness(.9)}
 <form id="formLogin">
 <div class="form-group"><label>E-mail</label><input type="email" id="lEmail" required></div>
 <div class="form-group"><label>Senha</label><input type="password" id="lSenha" required></div>
-<button>Entrar</button>
+<button type="submit">Entrar</button>
 </form>
 
 <div class="link" onclick="trocarTela('telaLogin','telaCadastro')">
@@ -155,7 +157,7 @@ Não tem cadastro? <b>Cadastre-se</b>
 <div class="form-group"><label>E-mail</label><input type="email" id="cEmail" required></div>
 <div class="form-group"><label>Senha</label><input type="password" id="cSenha" minlength="6" required></div>
 <div class="form-group"><label>Confirmar senha</label><input type="password" id="cConf" required></div>
-<button>Cadastrar</button>
+<button type="submit">Cadastrar</button>
 </form>
 
 <div class="link" onclick="trocarTela('telaCadastro','telaLogin')">
@@ -389,7 +391,7 @@ onclick="document.getElementById('inputRestaurar').click()">📥 Restaurar</butt
 </div>
 </div>
 
-<button style="background:#10b981;font-size:16px;margin-bottom:30px">
+<button type="submit" style="background:#10b981;font-size:16px;margin-bottom:30px">
 Salvar Prontuário
 </button>
 
@@ -539,7 +541,7 @@ Salvar Prontuário
 </div>
 </div>
 
-<button style="background:#2563eb;font-size:16px;margin-bottom:30px">
+<button type="submit" style="background:#2563eb;font-size:16px;margin-bottom:30px">
 Atualizar Prontuário
 </button>
 
@@ -593,7 +595,7 @@ Paciente: <span id="nomePacienteEncontrado" style="color:#273469;font-weight:nor
 </div>
 </div>
 
-<button style="background:#10b981;font-size:16px;margin-bottom:30px">
+<button type="submit" style="background:#10b981;font-size:16px;margin-bottom:30px">
 Salvar Agendamento
 </button>
 
@@ -603,6 +605,15 @@ Salvar Agendamento
 
 <script>
 const $=id=>document.getElementById(id);
+
+// Cria um usuário padrão caso não exista nenhum cadastrado
+if(!localStorage.getItem('userClinica')){
+    localStorage.setItem('userClinica', JSON.stringify({
+        nome: 'Administrador',
+        email: 'admin@clinica.com',
+        senha: '123456'
+    }));
+}
 
 function trocarTela(a, b) {
     $(a).style.display = 'none';
@@ -643,7 +654,7 @@ if(s.value!=='S')i.value='';
 }
 }
 
-/* LOGIN */
+/* CADASTRO */
 $('formCad').onsubmit=e=>{
 e.preventDefault();
 
@@ -656,18 +667,26 @@ email:$('cEmail').value,
 senha:$('cSenha').value
 }));
 
-msg('msgCad','Cadastro realizado com sucesso!','sucesso');
-setTimeout(()=>trocarTela('telaCadastro','telaLogin'),1000);
+msg('msgCad','Cadastro realizado com sucesso! Redirecionando...','sucesso');
+setTimeout(()=>{
+    $('formCad').reset();
+    trocarTela('telaCadastro','telaLogin');
+},1200);
 };
 
+/* LOGIN */
 $('formLogin').onsubmit=e=>{
 e.preventDefault();
 
 const u=JSON.parse(localStorage.getItem('userClinica')||'null');
+const emailDigitado = $('lEmail').value.trim();
+const senhaDigitada = $('lSenha').value.trim();
 
-if(!u || u.email !== $('lEmail').value \vert{}\vert{} u.senha !==$('lSenha').value)
-return msg('msgLogin','E-mail ou senha incorretos.','erro');
+if(!u || u.email !== emailDigitado || u.senha !== senhaDigitada){
+    return msg('msgLogin','E-mail ou senha incorretos. (Dica: admin@clinica.com / 123456)','erro');
+}
 
+$('msgLogin.style.display') = 'none';
 $('telaLogin').style.display='none';$('dashboard').style.display='block';
 
 abrirPopup();
@@ -1020,6 +1039,4 @@ $('lSenha').value='';$('telaLogin').style.display='flex';
 
 </body>
 </html>
-
-
 
