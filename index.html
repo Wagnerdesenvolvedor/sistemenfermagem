@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -39,7 +40,6 @@ body{min-height:100vh;background:linear-gradient(135deg,#e8f0ff,#f5f7fb);color:#
     box-shadow: 0 10px 35px #0002;
 }
 
-.card{width:100%;max-width:420px;background:#fff;padding:35px;border-radius:18px;box-shadow:0 10px 35px #0002}
 .logo{text-align:center;margin-bottom:25px}
 .logo .icone{width:60px;height:60px;margin:auto;border-radius:50%;background:#4f6bed;color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px}
 .logo h1{margin-top:12px;color:#273469;font-size:22px}
@@ -124,7 +124,7 @@ button:hover{filter:brightness(.9)}
 <div class="logo">
 <div class="icone">✚</div>
 <h1>Clínica Psiquiátrica</h1>
-<p style="color:#718096;font-size:13px;margin-top:4px">Sis Enfermegem</p>
+<p style="color:#718096;font-size:13px;margin-top:4px">Sis Enfermagem</p>
 </div>
 
 <div id="msgLogin" class="msg"></div>
@@ -608,21 +608,17 @@ const $=id=>document.getElementById(id);
 function trocarTela(a, b) {
     $(a).style.display = 'none';
 
-    // Login e Cadastro precisam continuar como FLEX
-    // para manter o conteúdo centralizado.
     if (b === 'telaLogin' || b === 'telaCadastro') {
         $(b).style.display = 'flex';
     } else {
         $(b).style.display = 'block';
     }
 
-    // Garante que a página volte para o topo
     window.scrollTo({
         top: 0,
         behavior: 'instant'
     });
 }
-
 
 function msg(id,text,tipo){
 const e=$(id);
@@ -670,13 +666,11 @@ e.preventDefault();
 
 const u=JSON.parse(localStorage.getItem('userClinica')||'null');
 
-if(!u||u.email!==$('lEmail').value||u.senha!==$('lSenha').value)
+if(!u||u.email!==$('lEmail').value\vert{}\vert{}u.senha!==$('lSenha').value)
 return msg('msgLogin','E-mail ou senha incorretos.','erro');
 
-$('telaLogin').style.display='none';
-$('dashboard').style.display='block';
+$('telaLogin').style.display='none';$('dashboard').style.display='block';
 
-/* ABRE A IMAGEM AUTOMATICAMENTE APÓS O LOGIN */
 abrirPopup();
 };
 
@@ -700,20 +694,18 @@ if(e.key==='Escape')fecharPopup();
 /* NAVEGAÇÃO */
 function abrirProntuario(){
 $('dashboard').style.display='none';
-$('telaProntuario').style.display='block';
-$('numProntuario').value=Math.floor(100000+Math.random()*900000);
+$('telaProntuario').style.display='block';$('numProntuario').value=Math.floor(100000+Math.random()*900000);
 }
 
 function abrirConsultas(){
-$('dashboard').style.display='none';
-$('telaConsultas').style.display='block';
-$('formConsultaEdicao').style.display='none';
-$('conProntuarioBusca').value='';
+$('dashboard').style.display='none';$('telaConsultas').style.display='block';
+$('formConsultaEdicao').style.display='none';$('conProntuarioBusca').value='';
 }
 
 function abrirAgenda(){
-$('dashboard').style.display='none';
-$('telaAgenda').style.display='block';
+$('dashboard').style.display='none';$('telaAgenda').style.display='block';
+$('agProntuarioBusca').value='';$('infoPacienteAgenda').style.display='none';
+atualizarListaAgendaVisual();
 }
 
 function voltarDashboard(){
@@ -807,7 +799,6 @@ endereco:g('aEnd')||g('conAEnd'),
 nascimento:g('aNasc')||g('conANasc')
 }
 };
-
 }
 
 $('formProntuario').onsubmit=e=>{
@@ -885,7 +876,6 @@ $('formConsultaEdicao').onsubmit=e=>{
 e.preventDefault();
 
 const p=coletarEdicao();
-
 localStorage.setItem(`prontuario_${p.numero}`,JSON.stringify(p));
 
 msg('msgConsulta',`Prontuário nº ${p.numero} atualizado com sucesso!`,'sucesso');
@@ -949,7 +939,8 @@ alert('Prontuário não encontrado!');
 return;
 }
 
-$('nomePacienteEncontrado').textContent=JSON.parse(p).paciente.nome;
+const pacienteObj = JSON.parse(p);
+$('nomePacienteEncontrado').textContent = pacienteObj.paciente.nome;
 $('infoPacienteAgenda').style.display='block';
 }
 
@@ -957,19 +948,23 @@ $('formAgenda').onsubmit=e=>{
 e.preventDefault();
 
 const n=$('agProntuarioBusca').value.trim();
+const pData = localStorage.getItem(`prontuario_${n}`);
 
-if(!localStorage.getItem(`prontuario_${n}`)){
+if(!pData){
 alert('Busque primeiro um prontuário válido.');
 return;
 }
 
+const pacienteNome = JSON.parse(pData).paciente.nome;
+
 const a={
-prontuario:n,
-data:$('agData').value,
-horario:$('agHorario').value,
-atividade:$('agAtividade').value,
-profissional:$('agProfissional').value,
-presencaObs:$('agPresencaObs').value
+prontuario: n,
+pacienteNome: pacienteNome,
+data: $('agData').value,
+horario: $('agHorario').value,
+atividade: $('agAtividade').value,
+profissional: $('agProfissional').value,
+presencaObs: $('agPresencaObs').value
 };
 
 localStorage.setItem(`agenda_${n}_${Date.now()}`,JSON.stringify(a));
@@ -977,18 +972,50 @@ localStorage.setItem(`agenda_${n}_${Date.now()}`,JSON.stringify(a));
 msg('msgAgenda','Agendamento salvo com sucesso!','sucesso');
 
 setTimeout(()=>{
-$('formAgenda').reset();
-$('infoPacienteAgenda').style.display='none';
+$('formAgenda').reset();$('infoPacienteAgenda').style.display='none';
+atualizarListaAgendaVisual();
 voltarDashboard();
 },1200);
 };
+
+function atualizarListaAgendaVisual() {
+    let containerLista = $('listaAgendamentosGeral');
+    if (!containerLista) {
+        containerLista = document.createElement('div');
+        containerLista.id = 'listaAgendamentosGeral';
+        containerLista.className = 'prontuario-card';
+        containerLista.innerHTML = '<h3>Agendamentos Cadastrados</h3><div id="conteudoAgendamentos"></div>';
+        $('formAgenda').after(containerLista);
+    }
+
+    const conteudo = $('conteudoAgendamentos');
+    let html = '';
+    let encontrados = false;
+
+    for(let i=0; i<localStorage.length; i++){
+        const key = localStorage.key(i);
+        if(key.startsWith('agenda_')){
+            encontrados = true;
+            const ag = JSON.parse(localStorage.getItem(key));
+            html += `
+                <div style="border-bottom:1px solid #eee; padding:10px 0; margin-bottom:10px; font-size:14px;">
+                    <b>Paciente:</b> ${ag.pacienteNome} (Prontuário: ${ag.prontuario})<br>
+                    <b>Data/Hora:</b> ${ag.data.split('-').reverse().join('/')} às ${ag.horario}<br>
+                    <b>Atividade:</b> ${ag.atividade} | <b>Profissional:</b> ${ag.profissional}<br>
+                    <b>Obs/Presença:</b> ${ag.presencaObs || 'Nenhuma'}
+                </div>
+            `;
+        }
+    }
+
+    conteudo.innerHTML = encontrados ? html : '<p style="color:#64748b; font-size:13px;">Nenhum agendamento cadastrado no momento.</p>';
+}
 
 /* SAIR */
 function sair(){
 document.querySelectorAll('#dashboard,.modulo-tela').forEach(e=>e.style.display='none');
 $('lEmail').value='';
-$('lSenha').value='';
-$('telaLogin').style.display='flex';
+$('lSenha').value='';$('telaLogin').style.display='flex';
 }
 </script>
 
